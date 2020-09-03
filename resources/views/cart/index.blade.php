@@ -1,13 +1,48 @@
 @extends('layouts.master')
 
+
 @section('extra-meta')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
+
 @section('content')
-@if (Cart::count() > 0)
-<div class="px-4 px-lg-0">
-    <div class="pb-5">
+<!-- Cart -->
+
+    <section>
+        <link rel="stylesheet" type="text/css" href="{{ asset('font_assets/styles/bootstrap-4.1.2/bootstrap.min.css') }}">
+        <link href="{{ asset('font_assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('font_assets/styles/cart.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('font_assets/styles/cart_responsive.css') }}">
+    </section>
+
+    
+    <!-- Home -->
+    @if (Cart::count() > 0)
+
+        <div class="home">
+            <div class="home_container d-flex flex-column align-items-center justify-content-end">
+                <div class="home_content text-center">
+                    <div class="home_title">Shopping Cart</div>
+                    <div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+                        <ul class="d-flex flex-row align-items-start justify-content-start text-center">
+                            <li><a href="/boutique">Home</a></li>
+                            <li>Your Cart</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+
+    @endif
+
+   
+
+
+  @if (Cart::count() > 0)
+   <div class="px-4 px-lg-0">
+     <div class="pb-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
@@ -37,9 +72,13 @@
                                         <div class="p-2">
                                             <img src="{{ asset('storage/' . $product->model->image) }}" alt="" width="70" class="img-fluid rounded shadow-sm">
                                             <div class="ml-3 d-inline-block align-middle">
-                                                <h5 class="mb-0"> <a href="{{ route('products.show', ['slug' => $product->model->slug]) }}" class="text-dark d-inline-block align-middle">{{ $product->model->title }}</a></h5><span class="text-muted font-weight-normal font-italic d-block">Catégories: @foreach ($product->model->categories as $category)
-                                                    {{ $category->name }}{{ $loop->last ? '' : ', '}}
-                                                @endforeach</span>
+                                                <h5 class="mb-0">
+                                                     <a href="{{ route('products.show', ['slug' => $product->model->slug]) }}" class="text-dark d-inline-block align-middle">{{ $product->model->title }}</a>
+                                                </h5>
+                                                    <span class="text-muted font-weight-normal font-italic d-block">
+                                                        Catégories: @foreach ($product->model->categories as $category)
+                                                        {{ $category->name }}{{ $loop->last ? '' : ', '}}
+                                                     @endforeach</span>
                                             </div>
                                         </div>
                                     </th>
@@ -65,22 +104,24 @@
                             </tbody>
                         </table>
                     </div>
+
                     <!-- End -->
                 </div>
             </div>
+           
             <div class="row p-4 bg-white rounded shadow-sm">
                 <div class="col-lg-6">
-                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Code coupon
+                    <div class="cart_extra_title">Coupon Code
                     </div>
                     @if (!request()->session()->has('coupon'))
                     <div class="p-4">
-                        <p class="font-italic mb-4">Si vous détenez un code Coupon, entrez-le dans le champ ci-dessous</p>
                     <form action="{{ route('cart.store.coupon') }}" method="POST">
                         @csrf
                         <div class="input-group mb-4 border rounded-pill p-2">
+                            
                             <input type="text" placeholder="Entrez votre code ici" name="code" aria-describedby="button-addon3" class="form-control border-0">
                             <div class="input-group-append border-0">
-                                <button id="button-addon3" type="submit" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Appliquer le coupon</button>
+                                <button id="button-addon3" type="submit" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Apply</button>
                             </div>
                         </div>
                     </form>
@@ -90,17 +131,13 @@
                         <p class="font-italic mb-4">Un coupon est déjà appliqué.</p>
                     </div>
                     @endif
-                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instructions pour le vendeur</div>
-                    <div class="p-4">
-                        <p class="font-italic mb-4">Si vous souhaitez ajouter des précisions à votre commande, merci de les rentrer dans le champ ci-dessous</p>
-                        <textarea name="" cols="30" rows="2" class="form-control"></textarea>
-                    </div>
+                   {{-- comment --}}
                 </div>
-                <div class="col-lg-6">
-                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Détails de la commande
+            
+                <div class="cart_extra cart_extra_2 col-lg-6">
+                    <div class="cart_extra_title">Cart Total
                     </div>
                     <div class="p-4">
-                        <p class="font-italic mb-4">Les frais éventuels de livraison seront calculés suivant les informations que vous avez transmises.</p>
                         <ul class="list-unstyled mb-4">
                         <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Sous-total </strong><strong>{{ getPrice(Cart::subtotal()) }}</strong></li>
                         @if (request()->session()->has('coupon'))
@@ -127,7 +164,17 @@
                             <h5 class="font-weight-bold">{{ getPrice(Cart::total()) }}</h5>
                         </li>
                         @endif
-                        </ul><a href="{{ route('checkout.index') }}" class="btn btn-dark rounded-pill py-2 btn-block"><i class="fa fa-credit-card" aria-hidden="true"></i> Passer à la caisse</a>
+                        
+                        <a href="{{ route('checkout.index') }}" class="checkout_button trans_200">
+                           <div class="checkout_button" id="caisse">   <i class="fa fa-credit-card m-2" aria-hidden="true"></i> Passer à la caisse</div>
+                            <style>
+                               #caisse{
+                                    font-size: x-large;
+                                    color: white;
+                               }
+                            </style>
+                        </a>
+                      </ul>
                     </div>
                 </div>
             </div>
@@ -145,7 +192,7 @@
 @endsection
 
 @section('extra-js')
-<script>
+ <script>
     var qty = document.querySelectorAll('#qty');
     Array.from(qty).forEach((element) => {
         element.addEventListener('change', function () {
@@ -173,5 +220,20 @@
             });
         });
     });
-</script>
+ </script>
 @endsection
+
+
+    <script src="{{ asset('font_assets/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('font_assets/styles/bootstrap-4.1.2/popper.js') }}"></script>
+    <script src="{{ asset('font_assets/styles/bootstrap-4.1.2/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('font_assets/plugins/greensock/TweenMax.min.js') }}"></script>
+    <script src="{{ asset('font_assets/plugins/greensock/TimelineMax.min.js') }}"></script>
+    <script src="{{ asset('font_assets/plugins/scrollmagic/ScrollMagic.min.js') }}"></script>
+    <script src="{{ asset('font_assets/plugins/greensock/animation.gsap.min.js') }}"></script>
+    <script src="{{ asset('font_assets/plugins/greensock/ScrollToPlugin.min.js') }}"></script>
+    <script src="{{ asset('font_assets/plugins/easing/easing.js') }}"></script>
+    <script src="{{ asset('font_assets/plugins/parallax-js-master/parallax.min.js') }}"></script>
+    <script src="{{ asset('font_assets/js/cart.js') }}"></script>
+
+

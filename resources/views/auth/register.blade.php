@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-4">
-           <img src="img/bio.jpg" width="400px" alt="">
+        <div class="col-md-6">
+           <img src="images/lifelogo.jpg" class="w-100 h-100 img-rounded"  alt="">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card border-0">
                 <div class="card-body">
                     <style>
@@ -18,9 +18,10 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right TextRegister">{{ __('Name') }}</label>
+                            
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
+                                <div> Name </div>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -32,9 +33,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="email" class="col-md-2 col-form-label text-md-right TextRegister">{{ __('E-Mail') }}</label>
+                            
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
+                                <div> Email </div>
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
@@ -46,9 +48,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-2 col-form-label text-md-right TextRegister">{{ __('Password') }}</label>
+                          
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
+                                <div> Password </div>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
@@ -60,16 +63,17 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-2 col-form-label text-md-right TextRegister">{{ __('Confirm Password') }}</label>
+                            
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
+                                <div> Confirm Password </div>
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-2">
-                                <button type="submit" class="btn btn-success btn-block">
+                            <div class="col-md-6 offset-md-0">
+                                <button type="submit" class="btn btn-info btn-block">
                                     {{ __('Register') }}
                                 </button>
                             </div>

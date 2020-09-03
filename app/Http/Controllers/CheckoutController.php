@@ -25,7 +25,7 @@ class CheckoutController extends Controller
             return redirect()->route('products.index');
         }
 
-        Stripe::setApiKey('sk_test_lsIwI7kLHVgpDTyumYN5DTBO008UcOzAdz');
+        Stripe::setApiKey('sk_test_4i4dcWnNweJlmi7V8gEGUA4c00ZcAif1Rj');
 
         if (request()->session()->has('coupon')) {
             $total = (Cart::subtotal() - request()->session()->get('coupon')['remise']) + (Cart::subtotal() - request()->session()->get('coupon')['remise']) * (config('cart.tax') / 100);

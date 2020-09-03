@@ -24,10 +24,19 @@ class ProductController extends Controller
     {
         $product = Product::where('slug', $slug)->firstOrFail();
         $stock = $product->stock === 0 ? 'Indisponible' : 'Disponible';
+        if (request()->categorie) {
+            $products = Product::with('categories')->whereHas('categories', function ($query) {
+                $query->where('slug', request()->categorie);
+            })->orderBy('created_at', 'DESC')->paginate(6);
+        } else {
+            $products = Product::with('categories')->orderBy('created_at', 'DESC')->paginate(6);
+        }
+
 
         return view('products.show', [
             'product' => $product,
-            'stock' => $stock
+            'stock' => $stock,
+            'products' => $products,
         ]);
     }
 
@@ -45,4 +54,17 @@ class ProductController extends Controller
 
         return view('products.search')->with('products', $products);
     }
+    public function index2()
+    {
+        if (request()->categorie) {
+            $products = Product::with('categories')->whereHas('categories', function ($query) {
+                $query->where('slug', request()->categorie);
+            })->orderBy('created_at', 'DESC')->paginate(6);
+        } else {
+            $products = Product::with('categories')->orderBy('created_at', 'DESC')->paginate(6);
+        }
+
+        return view('products.indexall')->with('products', $products);
+    }
+
 }

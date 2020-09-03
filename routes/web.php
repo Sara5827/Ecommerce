@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/test', 'ProductController@index2')->name('products.indexall');
 /* Product Routes */
 Route::get('/boutique', 'ProductController@index')->name('products.index');
 Route::get('/boutique/{slug}', 'ProductController@show')->name('products.show');
@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 /* Checkout Routes */
-Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth']], function () {
     Route::get('/paiement', 'CheckoutController@index')->name('checkout.index');
     Route::post('/paiement', 'CheckoutController@store')->name('checkout.store');
     Route::get('/merci', 'CheckoutController@thankYou')->name('checkout.thankYou');

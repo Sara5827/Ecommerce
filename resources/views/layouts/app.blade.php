@@ -31,7 +31,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                    
-                   <img src="https://www.epicerieverte.ma/frontassets/images/logo-mobile.png" width="90px" alt="">
+                   <img src={{asset("images/thelife.png")}} width="90px" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

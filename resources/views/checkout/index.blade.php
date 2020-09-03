@@ -9,8 +9,23 @@
 @endsection
 
 @section('content')
-<div class="col-md-12">
-    <a href="{{ route('cart.index') }}" class="btn btn-sm btn-secondary mt-3">Revenir au panier</a>
+<br>
+<br>
+<br>
+
+
+<div class="card text-center">
+    <div class="card-body bg-dark">
+        <br>
+      <h2 class="text-white"> Page paiement </h2>
+      <p class="card-text"> Paiement /  <a href="{{ route('cart.index') }}" class=""> Revenir au panier </a> </p>
+      <br>
+      <br>
+    </div>
+  </div>
+
+
+<div class="col-md-12 bg-light">
     <div class="row">
         <div class="col-md-6 mx-auto">
             <h4 class="text-center pt-5">Procéder au paiement</h4>
@@ -30,16 +45,19 @@
         </div>
     </div>
 </div>
+
 @endsection
+
+
 
 @section('extra-js')
 <script>
     //Suppression de la barre de navigation
-    document.getElementsByClassName('blog-header')[0].classList.add("d-none");
-    document.getElementsByClassName('nav-scroller')[0].classList.add("d-none");
+    // document.getElementsByClassName('blog-header')[0].classList.add("d-none");
+    // document.getElementsByClassName('nav-scroller')[0].classList.add("d-none");
 
     // Paiement Stripe
-    var stripe = Stripe('pk_test_Bcx25YZRqe73EcUXVtThZO5G00OJ5pn0oZ');
+    var stripe = Stripe('pk_test_esmEMJh8weK5frIf0RfCwzHo00RIVo9alV');
     var elements = stripe.elements();
     var style = {
         base: {
@@ -121,4 +139,18 @@
         });
     });
 </script>
+
 @endsection
+
+<script src="{{ asset('font_assets/js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('font_assets/styles/bootstrap-4.1.2/popper.js') }}"></script>
+<script src="{{ asset('font_assets/styles/bootstrap-4.1.2/bootstrap.min.js') }}"></script>
+<script src="{{ asset('font_assets/plugins/greensock/TweenMax.min.js') }}"></script>
+<script src="{{ asset('font_assets/plugins/greensock/TimelineMax.min.js') }}"></script>
+<script src="{{ asset('font_assets/plugins/scrollmagic/ScrollMagic.min.js') }}"></script>
+<script src="{{ asset('font_assets/plugins/greensock/animation.gsap.min.js') }}"></script>
+<script src="{{ asset('font_assets/plugins/greensock/ScrollToPlugin.min.js') }}"></script>
+<script src="{{ asset('font_assets/plugins/easing/easing.js') }}"></script>
+<script src="{{ asset('font_assets/plugins/parallax-js-master/parallax.min.js') }}"></script>
+<script src="{{ asset('font_assets/js/cart.js') }}"></script>
+
